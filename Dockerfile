@@ -61,7 +61,8 @@ COPY php7.4.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
-# CMD ["apache2-foreground"]
+STOPSIGNAL SIGTERM
+CMD ["/bin/bash", "-c", "apache2-foreground"]
 
 EXPOSE 80
 EXPOSE 443
