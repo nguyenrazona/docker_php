@@ -1,35 +1,27 @@
 FROM php:5.6-apache
 
+# Change Timezone
+ENV TZ=Asia/Tokyo
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo ${TZ} > /etc/timezone
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install packages
 RUN apt-get update && apt-get install -y \
-    zip \
-    curl \
-    sudo \
-    unzip \
-    libicu-dev \
-    libbz2-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
     libfreetype6-dev \
-    g++
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libpng-dev \
+    openssl libssl-dev \
+    libxml2-dev
 
 # Common PHP Extensions
-RUN docker-php-ext-install \
-    bz2 \
-    intl \
-    iconv \
-    bcmath \
-    opcache \
-    calendar \
-    pdo_mysql
-
-# Install Redis client commands
-RUN pecl install -o -f redis && docker-php-ext-enable redis
+RUN docker-php-ext-install -j$(nproc) iconv mcrypt pdo_mysql mbstring xml tokenizer zip \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install mysql
 
 # Install Mysql client commands
 RUN apt-get install -y default-mysql-client
