@@ -61,7 +61,5 @@ COPY php7.4.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
-CMD ["start-apache"]
-
 EXPOSE 80
 EXPOSE 443
