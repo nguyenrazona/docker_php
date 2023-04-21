@@ -47,7 +47,7 @@ RUN echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers
 
 # Make a test file
-RUN echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
+RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
 
 # Config HTTPS
 RUN apt install -y ssl-cert
