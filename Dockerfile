@@ -1,5 +1,10 @@
 FROM php:8.2-apache
 
+# Change Timezone
+ENV TZ=Asia/Tokyo
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo ${TZ} > /etc/timezone
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
