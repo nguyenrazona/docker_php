@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -49,7 +49,7 @@ RUN a2ensite default-ssl
 RUN service apache2 restart
 
 # Copy PHP config
-COPY php7.4.ini ${PHP_INI_DIR}/php.ini
+COPY php8.0.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
