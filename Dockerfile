@@ -46,6 +46,9 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers
 
+# Make a test file
+RUN echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
+
 # Config HTTPS
 RUN apt install -y ssl-cert
 RUN make-ssl-cert generate-default-snakeoil
