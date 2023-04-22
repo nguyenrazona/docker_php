@@ -10,18 +10,31 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install packages
 RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
+    zip \
+    curl \
+    sudo \
+    unzip \
+    libpq-dev \
+    libicu-dev \
+    libbz2-dev \
     libpng-dev \
-    openssl libssl-dev \
-    libxml2-dev
+    libjpeg-dev \
+    libmcrypt-dev \
+    libreadline-dev \
+    libfreetype6-dev \
+    g++ 
 
 # Common PHP Extensions
-RUN docker-php-ext-install -j$(nproc) iconv mcrypt pdo_mysql mbstring xml tokenizer zip \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install mysql
+RUN docker-php-ext-install \
+    bz2 \
+    intl \
+    iconv \
+    bcmath \
+    opcache \
+    calendar \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql
 
 # Install Mysql client commands
 RUN apt-get install -y default-mysql-client
@@ -50,4 +63,3 @@ COPY php5.6.ini ${PHP_INI_DIR}/php.ini
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
 EXPOSE 80
-EXPOSE 443
