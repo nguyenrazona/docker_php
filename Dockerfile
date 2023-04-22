@@ -54,7 +54,7 @@ RUN apt install -y ssl-cert
 RUN make-ssl-cert generate-default-snakeoil
 RUN a2enmod ssl
 RUN a2ensite default-ssl
-RUN service apache2 restart
+# RUN service apache2 restart
 
 # Copy PHP config
 COPY php7.4.ini ${PHP_INI_DIR}/php.ini
