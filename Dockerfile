@@ -5,6 +5,11 @@ ENV TZ=Asia/Tokyo
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo ${TZ} > /etc/timezone
 
+# Change Timezone
+ENV TZ=Asia/Tokyo
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo ${TZ} > /etc/timezone
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -50,18 +55,17 @@ RUN a2enmod rewrite headers
 RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
 
 # Config HTTPS
-RUN apt install -y ssl-cert
-RUN make-ssl-cert generate-default-snakeoil
-RUN a2enmod ssl
-RUN a2ensite default-ssl
-RUN service apache2 restart
+# RUN apt-get install -y dialog apt-utils
+# RUN apt install -y ssl-cert
+# RUN make-ssl-cert generate-default-snakeoil
+# RUN a2enmod ssl
+# RUN a2ensite default-ssl
+# RUN service apache2 restart
 
 # Copy PHP config
 COPY php8.2.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
-
-CMD ["apache2-foreground"]
 
 EXPOSE 80
 EXPOSE 443
