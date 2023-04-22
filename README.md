@@ -4,7 +4,6 @@
 - Apache server 2.4
 - PHP basic modules (including PHP Redis module to use Redis)
 - Composer latest version (corresponding to PHP version)
-- HTTPS on port 443 (accessing with https://localhost:[PORT])
 - Mysql client commands (including `mysqldump` command)
 
 ## Branches
