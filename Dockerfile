@@ -31,7 +31,9 @@ RUN docker-php-ext-install \
     bcmath \
     opcache \
     calendar \
-    pdo_mysql
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql
 
 # Install Redis client commands
 RUN pecl install -o -f redis && docker-php-ext-enable redis
@@ -63,4 +65,3 @@ COPY php8.0.ini ${PHP_INI_DIR}/php.ini
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
 EXPOSE 80
-EXPOSE 443
