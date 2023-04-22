@@ -52,6 +52,10 @@ RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/i
 # Copy PHP config
 COPY php7.4.ini ${PHP_INI_DIR}/php.ini
 
+# Copy script to run HTTPS
+COPY docker-php-entrypoint /usr/local/bin/docker-php-entrypoint
+RUN chmod 755 /usr/local/bin/docker-php-entrypoint
+
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
 EXPOSE 80
