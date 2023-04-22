@@ -49,6 +49,14 @@ RUN a2enmod rewrite headers
 # Make a test file
 RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
 
+# Config HTTPS
+# RUN apt-get install -y dialog apt-utils
+# RUN apt install -y ssl-cert
+# RUN make-ssl-cert generate-default-snakeoil
+# RUN a2enmod ssl
+# RUN a2ensite default-ssl
+# RUN service apache2 restart
+
 # Copy PHP config
 COPY php7.4.ini ${PHP_INI_DIR}/php.ini
 
