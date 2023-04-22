@@ -1,9 +1,4 @@
-FROM php:7.4-apache
-
-# Change Timezone
-ENV TZ=Asia/Tokyo
-RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
-    echo ${TZ} > /etc/timezone
+FROM php:5.6-apache
 
 # Change Timezone
 ENV TZ=Asia/Tokyo
@@ -50,7 +45,7 @@ RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/i
 # RUN service apache2 restart
 
 # Copy PHP config
-COPY php7.4.ini ${PHP_INI_DIR}/php.ini
+COPY php5.6.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
