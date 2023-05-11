@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     sudo \
     unzip \
+    libpq-dev \
     libicu-dev \
     libbz2-dev \
     libpng-dev \
