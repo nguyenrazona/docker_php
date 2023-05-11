@@ -46,6 +46,10 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers
 
+# Enable SSI
+RUN sed -ri -e "s!	Options Indexes FollowSymLinks!	Options Indexes FollowSymLinks Includes\n	AddType text/html .html .shtml\n	AddOutputFilter INCLUDES .html .shtml!g" /etc/apache2/apache2.conf
+RUN a2enmod include
+
 # Make a test file
 RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
 
