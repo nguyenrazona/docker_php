@@ -9,7 +9,9 @@ RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install packages
-RUN apt-get update && apt-get install -y \
+RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
+    && apt-get update && apt-get install -y \
     zip \
     curl \
     sudo \
