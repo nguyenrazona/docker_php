@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     sudo \
     unzip \
+    libpq-dev \
     libicu-dev \
     libbz2-dev \
     libpng-dev \
@@ -47,6 +48,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers
+
+# Enable SSI
+RUN sed -ri -e "s!	Options Indexes FollowSymLinks!	Options Indexes FollowSymLinks Includes\n	AddType text/html .html .shtml\n	AddOutputFilter INCLUDES .html .shtml!g" /etc/apache2/apache2.conf
+RUN a2enmod include
 
 # Make a test file
 RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/index.html
