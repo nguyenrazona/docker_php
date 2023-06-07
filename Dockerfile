@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:7.0-apache
 
 # Change Timezone
 ENV TZ=Asia/Tokyo
@@ -7,6 +7,10 @@ RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Register old packages
+RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list
 
 # Install packages
 RUN apt-get update && apt-get install -y \
@@ -65,7 +69,7 @@ RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/i
 # RUN service apache2 restart
 
 # Copy PHP config
-COPY php7.4.ini ${PHP_INI_DIR}/php.ini
+COPY php7.0.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
