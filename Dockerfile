@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.3-apache
 
 # Change Timezone
 ENV TZ=Asia/Tokyo
@@ -65,7 +65,7 @@ RUN mkdir ${APACHE_DOCUMENT_ROOT} && echo 'TEST OK' >> ${APACHE_DOCUMENT_ROOT}/i
 # RUN service apache2 restart
 
 # Copy PHP config
-COPY php7.2.ini ${PHP_INI_DIR}/php.ini
+COPY php7.3.ini ${PHP_INI_DIR}/php.ini
 
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
