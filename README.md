@@ -12,6 +12,10 @@
 - release-8.1: PHP 8.1-apache
 - release-8.0: PHP 8.0-apache
 - release-7.4: PHP 7.4-apache
+- release-7.3: PHP 7.4-apache
+- release-7.2: PHP 7.4-apache
+- release-7.1: PHP 7.4-apache
+- release-7.0: PHP 7.4-apache
 - release-5.6: PHP 5.6-apache (not support Redis)
 
 ## Dump note
