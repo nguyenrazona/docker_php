@@ -6,7 +6,7 @@ RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo ${TZ} > /etc/timezone
 
 # Install composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 # Install packages
 RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
